@@ -38,7 +38,38 @@ class TipCalculator(object):
         Thirty_percent_tip = Radiobutton(window, text= "30%", variable=self.tip_percent, value= 30 )
         Thirty_percent_tip.grid(column=0, row=6)
 
+        tip_amount_label = Label(window, text = "Tip Amount", bg = "brown", fg = "white")
+        tip_amount_label.grid(column=1, row = 3, padx = 15)
+        tip_amount_entry = Entry(window, textvariable=self.tip, width = 14)
+        tip_amount_entry.grid(column=2 , row=3)
 
+        bill_total_label = Label(window, text="Bill Total", bg= "blue", fg = "white")
+        bill_total_label.grid(column=1, row = 5, padx = 15)
+        bill_total_entry = Entry(window, textvariable=self.total_cost, width = 14)
+        bill_total_entry.grid(column=2, row=5)
+
+        calculate_button = Button(window, text="Calculate", bg = "Green", fg = "white", command= self.calculate)
+        calculate_button.grid(column=1, row = 7 , padx=15)
+
+        clear_button = Button(window, text="Clear", bg = "black", fg = "white", command=self.clear)
+        clear_button.grid(column=1, row=8, pady= 15)
         window.mainloop()
+
+
+        #functions
+    def calculate(self):
+        pre_tip = float(self.meal_cost.get())
+        percentage = self.tip_percent.get() / 100
+        tip_amount_entry = pre_tip * percentage
+        self.tip.set(tip_amount_entry)
+
+        final_bill = pre_tip + tip_amount_entry
+        self.total_cost.set(final_bill)
+
+    def clear(self):
+        self.tip.set("")
+        self.meal_cost.set("")
+        self.total_cost.set("")
+
 
 TipCalculator()
